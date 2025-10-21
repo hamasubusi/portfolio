@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WHO / Delay Installation - Hamasu Yuma</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #111;
+      color: #fff;
+      font-family: 'Noto Sans JP', sans-serif;
+      text-align: center;
+      line-height: 1.8;
+    }
+    header {
+      padding: 50px 0 20px;
+      font-size: 2.2rem;
+      font-weight: bold;
+      letter-spacing: 0.05em;
+    }
+    video {
+      width: 95%;
+      max-width: 1280px;
+      margin: 30px auto;
+      display: block;
+      border-radius: 8px;
+    }
+    .description {
+      max-width: 800px;
+      margin: 10px auto 60px;
+      color: #ccc;
+      font-size: 1.1rem;
+    }
+    .work-section {
+      /* Reduce trailing space before the back button */
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+    }
+    .who-subsection {
+      margin-bottom: 60px;
+      /* border-bottom: 1px solid #444; */
+      padding-bottom: 40px;
+    }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      padding: 40px 20px 0;
+    }
+    .gallery img {
+      width: 360px;
+      max-width: 90vw;
+      border-radius: 10px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s ease;
+      cursor: pointer;
+    }
+    .gallery img.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    a.back {
+      display: inline-block;
+      color: #bbb;
+      margin: 20px 0 40px;
+      text-decoration: underline;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+    a.back:hover {
+      color: #fff;
+    }
+    /* Lightbox styles */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.85);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      cursor: pointer;
+    }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255,255,255,0.3);
+      cursor: default;
+    }
+    /*
+    .flicker-who {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 120px;
+      background: repeating-linear-gradient(
+        to right,
+        rgba(255,255,255,0.05) 0 5%,
+        rgba(255,255,255,0.15) 5% 10%,
+        rgba(255,255,255,0.05) 10% 15%
+      );
+      mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+      animation: flickerLine 4s infinite ease-in-out alternate;
+      z-index: 50;
+      pointer-events: none;
+    }
+    @keyframes flickerLine {
+      0%, 19%, 22%, 63%, 64%, 100% { opacity: 1; }
+      20%, 23%, 60% { opacity: 0.2; }
+    }
+    */
+
+    /* === WHO ランダム切り替えアニメーション === */
+    .animated-who {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      transform: none;
+      display: flex;
+      gap: 1.5rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 900;
+      z-index: 9999;
+      pointer-events: none;
+      user-select: none;
+      background: transparent;
+      mix-blend-mode: normal;
+    }
+
+    /*
+    @keyframes whoStretch {
+      0%   { transform: scale(1, 1); opacity: 1; }
+      10%  { transform: scale(1.4, 0.6); opacity: 0.9; }
+      25%  { transform: scale(0.8, 1.3); opacity: 0.5; }
+      37%  { transform: scale(1.1, 0.7); opacity: 0; }
+      52%  { transform: scale(0.9, 1.2); opacity: 1; }
+      68%  { transform: scale(1.3, 0.8); opacity: 0.7; }
+      84%  { transform: scale(0.7, 1.4); opacity: 0.3; }
+      100% { transform: scale(1, 1); opacity: 1; }
+    }
+    .animated-who span {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      display: inline-block;
+      color: white;
+      font-weight: 900;
+      animation: whoStretch 1.8s steps(1, end) infinite;
+    }
+    .animated-who span:nth-child(1) { animation-delay: 0s; }
+    .animated-who span:nth-child(2) { animation-delay: 0.4s; }
+    .animated-who span:nth-child(3) { animation-delay: 0.9s; }
+    */
+
+    /*
+    .animated-who::before {
+      content: 'W H O';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 1.5rem;
+      color: rgba(200,200,200,0.4);
+      font-size: clamp(1.5rem, 6vw, 4rem);
+      font-weight: 900;
+      animation: whoGlitchGray 0.3s infinite steps(1, end);
+      pointer-events: none;
+    }
+    */
+
+    /* (whoGlitch and whoGlitchGray keyframes replaced by new effect above) */
+  </style>
+</head>
+<body>
+
+  <div class="flicker-who"></div>
+  <div class="animated-who">
+    <span>W</span>
+    <span>H</span>
+    <span>O</span>
+  </div>
+
+  <!-- WHO Series セクション -->
+  <section class="work-section">
+    <header>［［ Who ］］==体感するアート</header>
+    <img src="./who_title.JPG" alt="WHO メインビジュアル" style="width:25%;max-width:400px;margin:40px auto;display:block;border-radius:10px;">
+    <div style="max-width:900px;margin:40px auto 0;">
+      <div style="max-width:800px;margin:32px auto 60px;color:#ccc;font-size:1.1rem;line-height:2;">
+        <p style="margin:0;">
+          <span style="font-size:1.6rem;font-weight:700;">
+            体はリアルの代表なのか</span><br><br>
+          この展示は、インタラクティブアートとパフォーミングアーツを組み合わせ、<br>
+          福岡のアーティストと観客とが共同で体の知覚について探求するものです。<br><br>
+          投影される自分の姿や生身のダンサーを通じて、身体の表現を現実世界と映像の世界で交差させ、<br>
+          身体と映像の相互作用について考えます。<br><br>
+          観客自身も一瞬で映像の一部となり、生身のダンサーと対話を楽しむことができます。<br>
+          さらに、福岡を代表する多彩なジャンルのアーティストたちが、<br>
+          インタラクティブなアートとライブパフォーマンスを披露します。<br>
+          福岡のアートシーンにおける新たな化学反応をぜひご体験ください。
+        </p>
+      </div>
+    </div>
+
+    <hr style="width:80%;max-width:900px;margin:60px auto;border:0;border-top:1px solid #333;">
+    <section class="who-subsection">
+      <header>WHO.1</header>
+      <video controls autoplay muted loop playsinline>
+        <source src="who.mp4" type="video/mp4">
+      </video>
+      <div class="description">
+        <p>
+          カメラの映像をプロジェクターに投影し、投影した映像をカメラで撮影することで<br>
+          合わせ鏡の要領でフィードバックを起こし、撮影と投影にラグを起こすことで、<br>
+          映像が奥に行くにつれてラグが大きくなってゆく。<br>
+          過去が刻まれ、現実の動きがリアルな過去を生み出す。<br>
+        </p>
+      </div>
+      <div class="gallery">
+        <img src="who1_1.jpg" alt="WHO 展示風景 1">
+        <img src="who1_2.jpg" alt="WHO 展示風景 2">
+        <img src="who1_3.jpeg" alt="WHO 展示風景 3">
+      </div>
+    </section>
+<hr style="width:80%;max-width:900px;margin:60px auto;border:0;border-top:1px solid #333;">
+    <section class="who-subsection">
+      <header>WHO.2</header>
+      <video controls autoplay muted loop playsinline>
+        <source src="who2.mp4" type="video/mp4">
+      </video>
+      <div class="description">
+        <p>
+          モノクロの反転映像（ネガのような状態）として投影され、動いたものを白色に投影する。<br>
+          白を追いかける形で反転した影が追いかけてくる。さらに2つの影は3分後に再度投影される。<br>
+          上記に付随して現実の影とプロジェクターの影、デジタルの遅延した影と追ってくる影が生成される。<br>
+        </p>
+      </div>
+      <div class="gallery">
+        <img src="who2_1.jpeg" alt="WHO.2 展示風景 1">
+        <img src="who2_2.jpeg" alt="WHO.2 展示風景 2">
+        <img src="who2_3.jpeg" alt="WHO.2 展示風景 3">
+      </div>
+      <hr style="width:80%;max-width:900px;margin:0 auto 20px auto;border:0;border-top:1px solid #333;">
+      <div class="tools" style="margin-bottom:0;">
+        <p>
+          Tools: TouchDesigner
+        </p>
+      </div>
+    </section>
+  </section>
+  <a href="index.html" class="back">← 戻る</a>
+
+  <script>
+    const imgs = document.querySelectorAll('.gallery img');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    imgs.forEach(img => observer.observe(img));
+
+    // Lightbox functionality
+    let lightbox = null;
+
+    function createLightbox(src, alt) {
+      lightbox = document.createElement('div');
+      lightbox.classList.add('lightbox');
+
+      const lightboxImg = document.createElement('img');
+      lightboxImg.src = src;
+      lightboxImg.alt = alt || '';
+
+      lightbox.appendChild(lightboxImg);
+      document.body.appendChild(lightbox);
+
+      // Close lightbox on click outside image
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+          closeLightbox();
+        }
+      });
+
+      // Close lightbox on ESC key
+      document.addEventListener('keydown', onKeyDown);
+    }
+
+    function closeLightbox() {
+      if (lightbox) {
+        document.body.removeChild(lightbox);
+        lightbox = null;
+        document.removeEventListener('keydown', onKeyDown);
+      }
+    }
+
+    function onKeyDown(e) {
+      if (e.key === 'Escape') {
+        closeLightbox();
+      }
+    }
+
+    imgs.forEach(img => {
+      img.addEventListener('click', () => {
+        createLightbox(img.src, img.alt);
+      });
+    });
+
+    // --- ランダム変形アニメーション（規則性なし） ---
+    function randomizeWHO() {
+      const spans = document.querySelectorAll('.animated-who span');
+      spans.forEach(span => {
+        const scaleX = (Math.random() * 1.2 + 0.4).toFixed(2);
+        const scaleY = (Math.random() * 1.2 + 0.4).toFixed(2);
+        const opacity = Math.random() > 0.2 ? 1 : Math.random().toFixed(2);
+        span.style.transform = `scale(${scaleX}, ${scaleY})`;
+        span.style.opacity = opacity;
+      });
+      const nextDelay = Math.random() * 200 + 80; // 0.08〜0.28秒のランダム間隔（より高速）
+      setTimeout(randomizeWHO, nextDelay);
+    }
+    randomizeWHO();
+  </script>
+
+</body>
+</html>

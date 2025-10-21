@@ -1,0 +1,435 @@
+/* 濱洲裕馬 固定表示（階段的背景つき） */
+.floating-name {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.25em;
+  z-index: 9999;
+  pointer-events: none;
+  user-select: none;
+  /* Center perfectly with transform */
+  background: transparent !important;
+}
+
+.floating-name span {
+  display: inline-flex;
+  justify-content: center;
+  align-items: flex-end;
+  color: #fff;
+  border-radius: 6px 6px 0 0;
+  padding: 0.2em 0.3em;
+  font-weight: bold;
+  font-size: clamp(0.8rem, 3vw, 2.4rem);
+  transform-origin: center bottom;
+  animation: randomSize 0.01s steps(6, end) infinite;
+  animation-delay: 0s !important;
+}
+
+.floating-name::after {
+  content: "濱洲裕馬";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(2px) scale(0.8);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 0.25em;
+  color: rgba(180, 180, 180, 0.5);
+  font-weight: bold;
+  font-size: clamp(0.8rem, 3vw, 2.4rem);
+  z-index: -1;
+  /* animation: randomSizeGray 0.06s steps(6, end) infinite; */
+  background: transparent !important;
+}
+
+/* gray version animation (slower) */
+@keyframes randomSizeGray {
+  0% { transform: scale(1.0, 1.0) translateX(-50%); }
+  20% { transform: scale(1.3, 0.8) translateX(-50%); }
+  40% { transform: scale(0.9, 1.4) translateX(-50%); }
+  60% { transform: scale(1.2, 0.7) translateX(-50%); }
+  80% { transform: scale(0.8, 1.3) translateX(-50%); }
+  100% { transform: scale(1.0, 1.0) translateX(-50%); }
+}
+
+/* 各文字のアニメーションパターン */
+@keyframes randomSize {
+  0% { transform: scale(1.0, 1.0); }
+  20% { transform: scale(1.3, 0.8); }
+  40% { transform: scale(0.9, 1.4); }
+  60% { transform: scale(1.2, 0.7); }
+  80% { transform: scale(0.8, 1.3); }
+  100% { transform: scale(1.0, 1.0); }
+}
+
+.floating-name .small {
+  font-size: 4vw;
+  padding: 8px 10px;
+  background: #222;
+  border-radius: 10px;
+}
+/* グローバル設定 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #111;
+  color: #fff;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* キーフレーム（共通フェードイン） */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* ヒーロー（動画付き） */
+.hero {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+.hero video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  opacity: 0;
+  animation: fadeIn 2s ease forwards;
+  animation-delay: 0.5s;
+  text-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+}
+.overlay h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+.overlay p {
+  font-size: 1.2rem;
+}
+
+/* 作品グリッド */
+section.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  padding: 80px 5vw;
+}
+.grid-item {
+  position: relative;
+  overflow: hidden;
+  transform: translateY(50px);
+  opacity: 0;
+  transition: all 1s ease;
+}
+.grid-item.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+.grid-item img {
+  width: 100%;
+  display: block;
+}
+.grid-item iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: block;
+  border: none;
+}
+.caption {
+  padding: 10px 0;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* フッター */
+footer {
+  text-align: center;
+  padding: 40px 0;
+  background: #000;
+  color: #666;
+}
+.grid-item .detail {
+  color: #ccc;
+  font-size: 0.9rem;
+  margin-top: 8px;
+  text-align: left;
+  line-height: 1.6;
+}
+
+.grid-item a img {
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.grid-item a:hover img {
+  transform: scale(1.02);
+}
+.floating-name-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  z-index: 9999;
+  background: transparent;
+  pointer-events: none;
+}
+
+.floating-name-box {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background-color: #000;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  pointer-events: none;
+  user-select: none;
+  padding: 0 0.2em;
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
+}
+
+.floating-name-box.tiny {
+  font-size: clamp(0.6rem, 1.5vw, 2rem);
+  height: 2.5em;
+}
+.floating-name-box.small {
+  font-size: clamp(1rem, 2.5vw, 3rem);
+  height: 3em;
+}
+.floating-name-box.medium {
+  font-size: clamp(1.5rem, 3.5vw, 4rem);
+  height: 3.8em;
+}
+.floating-name-box.large {
+  font-size: clamp(2rem, 5vw, 5rem);
+  height: 4.6em;
+}
+.floating-name-box.xlarge {
+  font-size: clamp(2.5rem, 6vw, 6rem);
+  height: 5.2em;
+}
+
+.floating-name-box.spacer {
+  width: 1em;
+  background: transparent;
+}
+
+/* --- kill legacy bar backgrounds completely --- */
+.floating-name-bar { background: transparent !important; }
+.floating-name-box,
+.floating-name-box.tiny,
+.floating-name-box.small,
+.floating-name-box.medium,
+.floating-name-box.large,
+.floating-name-box.xlarge {
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+.floating-name-box::before,
+.floating-name-box::after { background: transparent !important; }
+/* === WHO RGB Pulse Animation === */
+.animated-who {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  gap: 1.5rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  color: #fff;
+  z-index: 9999;
+  pointer-events: none;
+  user-select: none;
+  background: transparent !important;
+}
+
+.animated-who span {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  display: inline-block;
+  color: #aaa; /* ベースを中間グレーにしてRGBの光で白く見せる */
+  font-weight: 900;
+  animation: whoRGBPulse 2.5s ease-in-out infinite alternate;
+  text-shadow:
+    0 0 0 rgba(255,0,0,0.8),
+    0 0 0 rgba(0,255,0,0.8),
+    0 0 0 rgba(0,0,255,0.8);
+}
+
+/* RGB拡散アニメーション（全体で同期して膨らむ） */
+@keyframes whoRGBPulse {
+  0% {
+    text-shadow:
+      0 0 0 rgba(255,0,0,0.6),
+      0 0 0 rgba(0,255,0,0.6),
+      0 0 0 rgba(0,0,255,0.6);
+  }
+  40% {
+    text-shadow:
+      15px 0 25px rgba(255,0,0,0.8),
+      -15px 0 25px rgba(0,255,0,0.8),
+      0 15px 35px rgba(0,0,255,0.8);
+  }
+  70% {
+    text-shadow:
+      25px 0 40px rgba(255,0,0,1),
+      -25px 0 40px rgba(0,255,0,1),
+      0 25px 50px rgba(0,0,255,1);
+  }
+ 100% {
+    text-shadow:
+      0 0 0 rgba(255,0,0,0.6),
+      0 0 0 rgba(0,255,0,0.6),
+      0 0 0 rgba(0,0,255,0.6);
+  }
+}
+
+/* === ドリップバッグ スライドショー === */
+.slideshow-container {
+  position: relative;
+  width: 90%;
+  max-width: 1000px;
+  margin: 60px auto;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+}
+
+.slideshow-slide {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+}
+
+.slideshow-slide.active {
+  opacity: 1;
+  z-index: 2;
+}
+
+.slideshow-slide img {
+  width: 100%;
+  display: block;
+  border-radius: 10px;
+}
+
+.slideshow-caption {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  padding: 10px 20px;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+}
+
+/* スライドショー用ナビゲーションドット */
+.slideshow-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.slideshow-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transition: background 0.3s;
+  cursor: pointer;
+}
+
+.slideshow-dots span.active {
+  background: #fff;
+}
+
+/* スライドショー矢印 */
+.slideshow-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 3rem;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  user-select: none;
+  z-index: 3;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.slideshow-arrow:hover {
+  color: #fff;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.slideshow-arrow.prev {
+  left: 20px;
+}
+
+.slideshow-arrow.next {
+  right: 20px;
+}
+
+/* Tighten spacing between dripbag slideshow and its title */
+.dripbag-side .dripbag-gallery {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.dripbag-side .design-subtitle {
+  margin-top: 10px;
+}
+
+/* DESIGNセクション専用配置調整 */
+section.design-split {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 60px;
+}
+
+section.design-split .menu-side,
+section.design-split .dripbag-side {
+  flex: 1 1 480px;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+section.design-split .menu-side img,
+section.design-split .dripbag-gallery {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 0;
+}
