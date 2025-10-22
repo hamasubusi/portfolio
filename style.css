@@ -451,4 +451,98 @@ section.design-split .dripbag-gallery {
   .overlay p {
     font-size: 1rem;
   }
+} 
+/* === PLAYLISTセクション用スタイル === */
+.playlist-section {
+  padding: 80px 5vw;
+  text-align: center;
+}
+
+.playlist-section h2 {
+  font-size: 2rem;
+  margin-bottom: 40px;
+  letter-spacing: 0.1em;
+}
+
+.playlist-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+}
+
+.pl-card {
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 20px;
+  width: 300px;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pl-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(255,255,255,0.1);
+}
+
+.pl-icon {
+  background: #222;
+  color: white;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.pl-title {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.pl-embed {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.pl-embed iframe {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  height: 120px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.pl-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.pl-btn {
+  background: #222;
+  color: #fff;
+  font-size: 0.9rem;
+  padding: 6px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.pl-btn:hover {
+  background: #555;
+}
+
+.pl-badge {
+  font-size: 0.7rem;
+  opacity: 0.7;
 }
