@@ -433,3 +433,22 @@ section.design-split .dripbag-gallery {
   object-fit: contain;
   margin-bottom: 0;
 }
+
+/* スマホ用WHOセクション最適化 */
+@media (max-width: 768px) {
+  .hero {
+    height: auto;
+    aspect-ratio: 9 / 16;
+  }
+  .hero video {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+  .overlay h1 {
+    font-size: 2rem;
+  }
+  .overlay p {
+    font-size: 1rem;
+  }
+}
