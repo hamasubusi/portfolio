@@ -546,3 +546,40 @@ section.design-split .dripbag-gallery {
   font-size: 0.7rem;
   opacity: 0.7;
 }
+
+/* 各セクション説明文（.description）スタイル */
+.description {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: left;
+  line-height: 1.8;
+  color: #ccc;
+  font-size: 1.1rem;
+}
+
+/* 以前の .description p { text-align: left; } ルールがあれば削除またはコメントアウト */
+
+.playlist-description {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: left !important;
+  line-height: 1.8;
+  color: #ccc;
+  font-size: 1.1rem;
+  padding-left: 40px;
+}
+
+/* スマホ表示時の説明文調整 */
+@media (max-width: 768px) {
+  /* 各説明文を中央寄せに戻す */
+  .menu-side p,
+  .dripbag-side p,
+  .playlist-description,
+  .grid-item .detail {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    
     * {
       margin: 0;
       padding: 0;
@@ -345,7 +346,7 @@
       font-weight: 400;
       color: #bbb;
       margin-bottom: 16px;
-      text-align: center;
+      text-align: left;
       letter-spacing: 0.03em;
       width: 100%;
       max-width: 700px;
@@ -356,7 +357,7 @@
       line-height: 1.8;
       max-width: 700px;
       margin: 15px auto 0;
-      text-align: center;
+      text-align: left;
       width: 100%;
     }
     .design-half .caption {
@@ -381,12 +382,13 @@
       max-width: 700px;
       margin: 15px auto 0;
       width: 100%;
+      padding-left:60px;
+      padding-right: 40px;
     }
     @media (max-width: 900px) {
       .design-split {
         flex-direction: column;
-        gap: 30px;
-        padding: 50px 3vw;
+
       }
       .design-half {
         max-width: 100vw;
@@ -400,6 +402,16 @@
       text-align: center;
       width: 100%;
       max-width: 700px;
+      
+    }
+        .playlist-description {
+      max-width: 800px;
+      margin: 0 auto 0px;
+      text-align: left;
+      font-size: 1rem;
+      color: #ccc;
+      padding-left:90px;
+      padding-right: 40px;
     }
   </style>
 </head>
@@ -424,7 +436,6 @@
 
   <h2 class="section-title">MOVIE</h2>
 
-
   <section class="grid">
     <div class="grid-item">
       <a href="https://www.youtube.com/watch?v=KtDI2GB_r48" target="_blank" rel="noopener">
@@ -432,7 +443,8 @@
       </a>
       <div class="caption">九州産業大学芸術学部 2015年度卒業制作展 CM</div>
       <p class="detail">
-        2015年度 九州産業大学芸術学部の卒業制作展のCMを作成。天神ソラリアビジョン、九州産業大学HP、YouTubeにて放送。<br><br>
+        2015年度 九州産業大学芸術学部の卒業制作展のCMを作成。<br>
+        天神ソラリアビジョン、九州産業大学HP、YouTubeにて放送。<br><br>
         Tools : Adobe After Effects / Photoshop
       </p>
     </div>
@@ -455,9 +467,9 @@
     <div class="design-half menu-side">
       <img src="menu.png" alt="メニュー表デザイン" id="menu-image">
       <h3 class="design-subtitle">MENU</h3>
-      <p>ROUND COUNTERの店内メニュー表デザイン。
-        <br>テキストのみのメニュー表から商品画像を入れたメニュー表を作成。<br>
-      こだわったデザートやトーストの見た目を活かし、コンセプトと合わせて作成<br>
+      <p style="text-align: left;">ROUND COUNTERの店内メニュー表デザイン。
+        <br>テキストのみのメニュー表に商品画像をメニュー表を作成。<br>
+      こだわったデザートやトーストの見た目を活かし、コンセプトと合わせて作成<br><br><br>
       Tools : Adobe Illustrator / Photoshop / ChatGPT</p>
     </div>
     <div class="design-half dripbag-side">
@@ -474,8 +486,9 @@
         </div>
       </section>
       <h3 class="design-subtitle">DRIPBAG COFFEE</h3>
-      <p>ROUND COUNTER の定番ブレンドのドリップバッグ６種を作成。<br>
-      ギフト用でお店に来たことがない方へもお店が想像できるよう創業当時の写真を使用し6色で作成。<br>
+      <p style="text-align: left;">
+        ROUND COUNTER の定番ブレンドのドリップバッグ６種を作成。<br>
+      ギフト用でお店に来たことがない方へもお店が想像できるよう創業当時の写真を使用し、セット販売を狙い全6色で作成。<br><br><br>
       Tools : Adobe Illustrator<br>
       </p>
     </div>
@@ -484,9 +497,12 @@
   <!-- === PLAYLISTセクション（中央揃え修正版） === -->
   <section class="playlist-section">
     <h2>PLAYLIST</h2>
-    <p class="playlist-description">2022〜2025年にかけて、REC COFFEE全10店舗の店内BGMを<br>
-季節ごとの雰囲気に合わせて年2回選曲を更新し、クリスマスなどの特別なシーズン音楽も担当。<br>
-また、その他のカフェやイベントからの依頼を受け、空間に合わせたプレイリストを企画・制作。</p><br>
+    <p class="playlist-description" style="text-align: left;">
+      2022〜2025年にかけて、REC COFFEE全10店舗の店内BGMを季節ごとの<br>
+      雰囲気に合わせて年2回選曲を更新。クリスマスなどの特別なシーズン音楽も担当。<br>
+      その他のカフェやイベントからの依頼を受け、空間に合わせた
+      プレイリストを企画・制作。</p>
+      <br>
     <p class="playlist-subtitle">SHOP MUSIC</p>
     <div class="playlist-container">
 
@@ -778,11 +794,11 @@
   function showItte(period) {
     document.querySelectorAll('.itte-tabs button').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.itte-frame').forEach(f => f.classList.remove('active'));
-    document.querySelector(`.itte-tabs button[onclick="showItte('${period}')"]`).classList.add('active');
-    document.getElementById(`itte-${period}`).classList.add('active');
+    document.querySelector(.itte-tabs button[onclick="showItte('${period}')"]).classList.add('active');
+    document.getElementById(itte-${period}).classList.add('active');
     // Apple Music links show/hide
     document.querySelectorAll('#apple-music-morning, #apple-music-day, #apple-music-night').forEach(link => link.style.display = 'none');
-    document.getElementById(`apple-music-${period}`).style.display = 'inline-flex';
+    document.getElementById(apple-music-${period}).style.display = 'inline-flex';
   }
   </script>
   <!-- === PLAYLISTここまで === -->
@@ -1037,11 +1053,13 @@
     });
   </script>
 
-
-
   <!-- About -->
   <section class="about">
-    <h2>About</h2>
+    <br> <br>
+     <h1>濱洲裕馬</h1>
+ <br>
+     <br>
+         <h2>profile</h2>
     <p>
       映像・Web表現・パッケージデザインを軸に、コーヒー製造現場の実務経験を活かした表現活動を行っています。<br>
       ドリップバッグのOEM製造現場で営業・企画・デザインまでを担当。<br>
@@ -1085,8 +1103,6 @@
     items.forEach(item => observer.observe(item));
   </script>
 
-
-
   <div class="floating-name">
     <span><span class="gray">濱</span>濱</span>
     <span><span class="gray">洲</span>洲</span>
@@ -1103,13 +1119,13 @@
       const scaleY = 0.7 + Math.random() * 1.6;
       const opacity = Math.random() > 0.1 ? 1 : 0.4;
       const duration = 100 + Math.random() * 200;
-      span.style.transition = `transform ${duration}ms steps(1, end), opacity ${duration}ms steps(1, end)`;
-      span.style.transform = `scale(${scaleX.toFixed(2)}, ${scaleY.toFixed(2)})`;
+      span.style.transition = transform ${duration}ms steps(1, end), opacity ${duration}ms steps(1, end);
+      span.style.transform = scale(${scaleX.toFixed(2)}, ${scaleY.toFixed(2)});
       span.style.opacity = opacity;
       const gray = span.querySelector('.gray');
       if (gray) {
-        gray.style.transition = `transform ${duration * 3}ms steps(1, end), opacity ${duration}ms steps(1, end)`;
-        gray.style.transform = `scale(${(scaleX * 0.6).toFixed(2)}, ${(scaleY * 0.6).toFixed(2)})`;
+        gray.style.transition = transform ${duration * 3}ms steps(1, end), opacity ${duration}ms steps(1, end);
+        gray.style.transform = scale(${(scaleX * 0.6).toFixed(2)}, ${(scaleY * 0.6).toFixed(2)});
         gray.style.opacity = opacity * 0.5;
       }
       setTimeout(() => randomizePair(span), duration + Math.random() * 400);
@@ -1142,12 +1158,3 @@
     if (e.target === menuLightbox) menuLightbox.style.display = 'none';
   });
   </script>
-    .playlist-description {
-      max-width: 800px;
-      margin: 0 auto 16px;
-      text-align: left;
-      font-size: 1rem;
-      color: #ccc;
-      line-height: 1.6;
-      padding: 0 20px;
-    }
