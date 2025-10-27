@@ -404,14 +404,14 @@
       max-width: 700px;
       
     }
-        .playlist-description {
-      max-width: 800px;
-      margin: 0 auto 0px;
+    .playlist-description {
+      max-width: 700px;
+      margin: 0 auto;
       text-align: left;
       font-size: 1rem;
       color: #ccc;
-      padding-left:90px;
-      padding-right: 40px;
+      line-height: 1.8;
+      padding: 0;
     }
   </style>
 </head>
@@ -498,8 +498,8 @@
   <section class="playlist-section">
     <h2>PLAYLIST</h2>
     <p class="playlist-description" style="text-align: left;">
-      2022〜2025年にかけて、REC COFFEE全10店舗の店内BGMを季節ごとの<br>
-      雰囲気に合わせて年2回選曲を更新。クリスマスなどの特別なシーズン音楽も担当。<br>
+      2022〜2025年にかけて、REC COFFEE全6店舗の店内BGMを季節ごとの雰囲気に合わせて年2回選曲を更新。
+      クリスマスなどの特別なシーズン音楽も担当。<br>
       その他のカフェやイベントからの依頼を受け、空間に合わせた
       プレイリストを企画・制作。</p>
       <br>
@@ -1083,8 +1083,42 @@
   <!-- Contact -->
   <section class="contact">
     <h2>Contact</h2>
-    <p><a href="mailto:hamath.bzi@gmail.com" style="color: #fff; text-decoration: underline;">hamath.bzi@gmail.com</a></p>
+    <button id="contact-button" class="contact-btn">MAIL</button>
   </section>
+
+  <script>
+  (function() {
+    const email = "hamasu.busi@gmail.com";
+    const subject = encodeURIComponent("お問い合わせ");
+    const body = encodeURIComponent("こちらにご記入ください：\n\n");
+
+    document.getElementById("contact-button").addEventListener("click", (e) => {
+      e.preventDefault();
+      // Gmailを優先して開く（Safari・Chrome両対応）
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&to=${email}&su=${subject}&body=${body}`;
+      window.open(gmailUrl, "_blank");
+    });
+  })();
+  </script>
+
+  <style>
+    .contact-btn {
+      background: #fff;
+      color: #111;
+      border: none;
+      padding: 12px 32px;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .contact-btn:hover {
+      background: #ff6b6b;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+  </style>
 
   <footer>
     © 2025 Hamasu Yuma
@@ -1111,7 +1145,7 @@
   </div>
 
   <script>
-    // 濱洲裕馬 floating animation (restored logic)
+    // 濱洲裕馬 floating animation (修正版)
     const namePairs = document.querySelectorAll('.floating-name span');
 
     function randomizePair(span) {
@@ -1119,15 +1153,18 @@
       const scaleY = 0.7 + Math.random() * 1.6;
       const opacity = Math.random() > 0.1 ? 1 : 0.4;
       const duration = 100 + Math.random() * 200;
-      span.style.transition = transform ${duration}ms steps(1, end), opacity ${duration}ms steps(1, end);
-      span.style.transform = scale(${scaleX.toFixed(2)}, ${scaleY.toFixed(2)});
+
+      span.style.transition = `transform ${duration}ms steps(1, end), opacity ${duration}ms steps(1, end)`;
+      span.style.transform = `scale(${scaleX.toFixed(2)}, ${scaleY.toFixed(2)})`;
       span.style.opacity = opacity;
+
       const gray = span.querySelector('.gray');
       if (gray) {
-        gray.style.transition = transform ${duration * 3}ms steps(1, end), opacity ${duration}ms steps(1, end);
-        gray.style.transform = scale(${(scaleX * 0.6).toFixed(2)}, ${(scaleY * 0.6).toFixed(2)});
+        gray.style.transition = `transform ${duration * 3}ms steps(1, end), opacity ${duration}ms steps(1, end)`;
+        gray.style.transform = `scale(${(scaleX * 0.6).toFixed(2)}, ${(scaleY * 0.6).toFixed(2)})`;
         gray.style.opacity = opacity * 0.5;
       }
+
       setTimeout(() => randomizePair(span), duration + Math.random() * 400);
     }
 
