@@ -7,33 +7,58 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 items.forEach(item => observer.observe(item));
 
-// ========== Dripbag gallery (クリック・スワイプ対応) ==========
+// ========== Galleries (manual prev/next + click/swipe) ==========
 (function(){
-  const images = document.querySelectorAll('.dripbag-container img');
-  const container = document.querySelector('.dripbag-container');
-  let current = 0;
+  // 対象コンテナ（両方対応）
+  const containers = document.querySelectorAll('.gallery-container, .dripbag-container');
+  if (!containers.length) return;
 
-  function show(index){ images.forEach(img => img.classList.remove('active')); images[index].classList.add('active'); }
-  function prev(){ current = (current - 1 + images.length) % images.length; show(current); }
-  function next(){ current = (current + 1) % images.length; show(current); }
+  containers.forEach(container => {
+    const images = container.querySelectorAll('img');
+    if (images.length === 0) return;
 
-  container.addEventListener('click', e => {
-    if (e.target.classList.contains('dripbag-arrow')) return;
-    const rect = container.getBoundingClientRect();
-    const clickX = e.clientX - rect.left;
-    clickX < rect.width * 0.2 ? prev() : clickX > rect.width * 0.8 && next();
+    // 初期表示
+    let current = Array.from(images).findIndex(img => img.classList.contains('active'));
+    if (current === -1) { current = 0; images[0].classList.add('active'); }
+
+    const show = (i) => {
+      images.forEach(img => img.classList.remove('active'));
+      images[i].classList.add('active');
+    };
+    const prev = () => { current = (current - 1 + images.length) % images.length; show(current); };
+    const next = () => { current = (current + 1) % images.length; show(current); };
+
+    // 矢印（.gallery- / .dripbag- の両方をサポート）
+    const leftArrows = container.querySelectorAll('.gallery-arrow-left, .dripbag-arrow-left');
+    const rightArrows = container.querySelectorAll('.gallery-arrow-right, .dripbag-arrow-right');
+    leftArrows.forEach(a => a.addEventListener('click', e => { e.stopPropagation(); prev(); }));
+    rightArrows.forEach(a => a.addEventListener('click', e => { e.stopPropagation(); next(); }));
+
+    // 画像左右 20% クリックで切替（矢印クリックは除外）
+    container.addEventListener('click', e => {
+      const target = e.target;
+      // どれかの矢印をクリックした場合は何もしない
+      if (target.closest('.gallery-arrow, .gallery-arrow-left, .gallery-arrow-right, .dripbag-arrow-left, .dripbag-arrow-right')) return;
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      if (x < rect.width * 0.2) prev();
+      else if (x > rect.width * 0.8) next();
+    });
+
+    // スワイプ操作
+    let startX = null;
+    container.addEventListener('touchstart', e => {
+      if (e.touches.length === 1) startX = e.touches[0].clientX;
+    }, { passive: true });
+
+    container.addEventListener('touchend', e => {
+      if (startX === null) return;
+      const dx = e.changedTouches[0].clientX - startX;
+      if (dx > 30) prev();
+      else if (dx < -30) next();
+      startX = null;
+    }, { passive: true });
   });
-
-  let startX;
-  container.addEventListener('touchstart', e => startX = e.touches[0].clientX);
-  container.addEventListener('touchend', e => {
-    const delta = e.changedTouches[0].clientX - startX;
-    if (delta > 30) prev();
-    else if (delta < -30) next();
-  });
-
-  container.querySelector('.dripbag-arrow-left')?.addEventListener('click', e => { e.stopPropagation(); prev(); });
-  container.querySelector('.dripbag-arrow-right')?.addEventListener('click', e => { e.stopPropagation(); next(); });
 })();
 
 // ========== Menu Lightbox ==========
@@ -50,26 +75,25 @@ if (menuImg) {
   lightbox.onclick = e => { if (e.target === lightbox) lightbox.style.display = 'none'; };
 }
 
-// ========== Floating name animation ==========
-document.querySelectorAll('.floating-name span').forEach(span => {
-  const gray = span.querySelector('.gray');
-  const randomize = () => {
-    const sx = 0.7 + Math.random() * 1.6;
-    const sy = 0.7 + Math.random() * 1.6;
-    const o = Math.random() > 0.1 ? 1 : 0.4;
-    const d = 100 + Math.random() * 200;
-    span.style.transition = `transform ${d}ms steps(1,end), opacity ${d}ms steps(1,end)`;
-    span.style.transform = `scale(${sx.toFixed(2)},${sy.toFixed(2)})`;
-    span.style.opacity = o;
-    if (gray) {
-      gray.style.transition = `transform ${d*3}ms steps(1,end), opacity ${d}ms steps(1,end)`;
-      gray.style.transform = `scale(${(sx*0.6).toFixed(2)},${(sy*0.6).toFixed(2)})`;
-      gray.style.opacity = o*0.5;
+// ========== Floating name animation (white + gray independent) ==========
+(function(){
+  const spans = document.querySelectorAll('.floating-name span');
+  if (!spans.length) return;
+
+  spans.forEach(span => {
+    function animate(){
+      const sx = 0.7 + Math.random() * 1.6;
+      const sy = 0.7 + Math.random() * 1.6;
+      const o = Math.random() > 0.2 ? 1 : 0.5;
+      const d = 100 + Math.random() * 300;
+      span.style.transition = `transform ${d}ms steps(1,end), opacity ${d}ms steps(1,end)`;
+      span.style.transform = `scale(${sx.toFixed(2)},${sy.toFixed(2)})`;
+      span.style.opacity = o;
+      setTimeout(animate, d + Math.random()*400);
     }
-    setTimeout(randomize, d + Math.random()*400);
-  };
-  setTimeout(randomize, Math.random()*500);
-});
+    setTimeout(animate, Math.random()*400);
+  });
+})();
 
 // ========== it()te playlist tabs ==========
 window.showItte = function(period){
@@ -78,5 +102,6 @@ window.showItte = function(period){
   document.querySelector(`.itte-tabs button[onclick="showItte('${period}')"]`)?.classList.add('active');
   document.getElementById(`itte-${period}`)?.classList.add('active');
   document.querySelectorAll('#apple-music-morning, #apple-music-day, #apple-music-night').forEach(link=>link.style.display='none');
-  document.getElementById(`apple-music-${period}`).style.display='inline-flex';
+  const link = document.getElementById(`apple-music-${period}`);
+  if (link) link.style.display='inline-flex';
 };

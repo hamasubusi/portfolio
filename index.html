@@ -1,418 +1,25 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Hamasu Yuma</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet"/>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css?v=1.0"/>
   <style>
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Noto Sans JP', sans-serif;
-      background-color: #111;
-      color: #fff;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-    .name-section {
-      background: #111;
-      text-align: center;
-      padding: 60px 20px 40px;
-    }
-    .name-section h1 {
-      font-size: 3rem;
-      margin-bottom: 10px;
-    }
-    .name-section h2 {
-      font-size: 1.2rem;
-      color: #aaa;
-    }
-    .hero { position: relative; }
-    .hero .hero-hit {
-      position: absolute;
-      inset: 0;
-      z-index: 10;
-      display: block;
-      cursor: pointer;
-    }
-    .hero {
-      height: 100vh;
-      overflow: hidden;
-    }
-    .hero video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .overlay {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: white;
-      text-align: center;
-      opacity: 0;
-      animation: fadeIn 2s ease forwards;
-      animation-delay: 0.5s;
-      text-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
-    }
-    .overlay h1 {
-      font-size: 3.5rem;
-      margin-bottom: 1rem;
-    }
-    .overlay p {
-      font-size: 1.2rem;
-    }
-    section.grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 40px;
-      padding: 80px 5vw;
-    }
-    .grid-item {
-      position: relative;
-      overflow: hidden;
-      transform: translateY(50px);
-      opacity: 0;
-      transition: all 1s ease;
-    }
-    .grid-item.show {
-      transform: translateY(0);
-      opacity: 1;
-    }
-    .grid-item img,
-    .grid-item iframe {
-      width: 100%;
-      height: auto;
-      display: block;
-      border: none;
-    }
-    .caption {
-      padding: 10px 0 4px;
-      font-weight: bold;
-      text-align: center;
-    }
-    .grid-item .detail {
-      color: #ccc;
-      font-size: 0.9rem;
-      margin-top: 4px;
-      text-align: left;
-      line-height: 1.6;
-    }
-    .grid-item a img {
-      transition: transform 0.3s ease;
-      cursor: pointer;
-      border-radius: 6px;
-    }
-    .grid-item a:hover img {
-      transform: scale(1.02);
-    }
-    .section-title {
-      text-align: center;
-      font-size: 2rem;
-      font-weight: bold;
-      color: #fff;
-      margin-top: 40px;
-      margin-bottom: 20px;
-      letter-spacing: 0.05em;
-      padding: 10px 0;
-    }
-    section.about,
-    section.contact {
-      padding: 60px 20px;
-      background: #222;
-      text-align: center;
-    }
-    section.about p,
-    section.contact p {
-      max-width: 600px;
-      margin: auto;
-      line-height: 1.6;
-    }
-    .about h2,
-    .about h3 {
-      text-align: center;
-    }
-    .about ul {
-      list-style: none;
-      padding: 0;
-      margin: 0 auto;
-      max-width: 600px;
-      text-align: left;
-    }
-    .about li {
-      margin-bottom: 8px;
-      line-height: 1.8;
-    }
-    footer {
-      text-align: center;
-      padding: 40px 0;
-      background: #000;
-      color: #666;
-    }
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
-    }
-    .floating-name {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      background: transparent !important;
-      box-shadow: none !important;
-      backdrop-filter: none !important;
-      text-align: center;
-      z-index: 9999;
-      font-family: "Noto Sans JP", sans-serif;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      padding: 0.6em 0;
-      user-select: none;
-      pointer-events: none;
-    }
-    .floating-name span {
-      position: relative;
-      display: inline-block;
-      margin: 0 1.5em;
-      font-size: clamp(1rem, 3vw, 2.2rem);
-      color: white;
-      transform-origin: center bottom;
-    }
-    .floating-name span .gray {
-      position: absolute;
-      top: 0;
-      left: 0;
-      color: rgba(180, 180, 180, 0.35);
-      z-index: -1;
-      transform-origin: center bottom;
-      transform: translate(-50%, 0) scale(0.6);
-      opacity: 0.35;
-    }
-    /* Dripbag Gallery Styles */
-    .dripbag-gallery {
-      text-align: center;
-      position: relative;
-      padding: 20px 0;
-    }
-    .dripbag-container {
-      position: relative;
-      display: inline-block;
-      max-width: 800px;
-      width: 90%;
-      border-radius: 10px;
-    }
-    .dripbag-container img {
-      width: 100%;
-      opacity: 0;
-      position: absolute;
-      top: 0;
-      left: 0;
-      border-radius: 10px;
-      transition: opacity 1s ease;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-    }
-    .dripbag-container img.active {
-      position: relative;
-      opacity: 1;
-    }
-    /* Dripbag Gallery Navigation Arrows */
-    .dripbag-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 2;
-      font-size: 2.8rem;
-      font-weight: bold;
-      color: #fff;
-      opacity: 0.6;
-      background: transparent;
-      border-radius: 0;
-      padding: 0.1em 0.4em;
-      cursor: pointer;
-      user-select: none;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.13);
-      transition: opacity 0.25s, background 0.25s, box-shadow 0.25s;
-      border: none;
-      outline: none;
-      pointer-events: auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .dripbag-arrow-left {
-      left: -32px;
-    }
-    .dripbag-arrow-right {
-      right: -32px;
-    }
-    .dripbag-arrow:hover,
-    .dripbag-arrow:focus {
-      opacity: 1;
-      background: transparent;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.23);
-    }
-    @media (max-width: 600px) {
-      .dripbag-container { max-width: 90vw; }
-      .dripbag-arrow {
-        font-size: 2.1rem;
-        left: -20px;
-        right: -20px;
-        padding: 0.1em 0.3em;
-      }
-      .dripbag-arrow-left { left: -16px; }
-      .dripbag-arrow-right { right: -16px; }
-    }
-    .dripbag-info {
-      color: #fff;
-      margin-top: 30px;
-      font-size: 1.1rem;
-      font-weight: 500;
-    }
-    /* Responsive section-title */
-    @media (max-width: 600px) {
-      .section-title {
-        font-size: 1.3rem;
-        padding: 40px 0 14px;
-      }
-    }
-
-    /* DESIGN split layout - improved baseline and alignment */
-    .design-split {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      gap: 80px;
-      flex-wrap: wrap;
-      background: #111;
-      padding: 80px 5vw;
-    }
-    .design-half {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-      text-align: center;
-      flex: 1 1 45%;
-      max-width: 700px;
-    }
-    .menu-side, .dripbag-side {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      margin-top: 0;
-    }
-    .design-half img,
-    .dripbag-gallery {
-      margin-bottom: 20px;
-    }
-    .design-half img {
-      width: 100%;
-      max-width: 700px;
-      border-radius: 10px;
-      box-shadow: 0 0 30px rgba(0,0,0,0.4);
-      transition: transform 0.3s ease;
-      height: auto;
-      display: block;
-      align-self: center;
-    }
-    .design-half img:hover {
-      transform: scale(1.02);
-    }
-    .design-subtitle {
-      font-size: 1.2rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      color: #fff;
-      margin-top: 18px;
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      text-align: center;
-      width: 100%;
-      max-width: 700px;
-    }
-    .design-subcaption {
-      font-size: 1rem;
-      font-weight: 400;
-      color: #bbb;
-      margin-bottom: 16px;
-      text-align: left;
-      letter-spacing: 0.03em;
-      width: 100%;
-      max-width: 700px;
-    }
-    .design-half p {
-      color: #ccc;
-      font-size: 0.95rem;
-      line-height: 1.8;
-      max-width: 700px;
-      margin: 15px auto 0;
-      text-align: left;
-      width: 100%;
-    }
-    .design-half .caption {
-      font-weight: bold;
-      font-size: 1.1rem;
-      margin-top: 14px;
-      color: #fff;
-    }
-    .dripbag-info p {
-      color: #ccc;
-      text-align: left;
-      font-size: 0.95rem;
-      line-height: 1.8;
-      max-width: 700px;
-      margin: 15px auto 0;
-    }
-    .menu-side p {
-      color: #ccc;
-      text-align: center;
-      font-size: 0.95rem;
-      line-height: 1.8;
-      max-width: 700px;
-      margin: 15px auto 0;
-      width: 100%;
-      padding-left:60px;
-      padding-right: 40px;
-    }
-    @media (max-width: 900px) {
-      .design-split {
-        flex-direction: column;
-
-      }
-      .design-half {
-        max-width: 100vw;
-        padding: 40px 0;
-      }
-      .menu-side, .dripbag-side {
-        max-width: 100vw;
-      }
-    }
-    .design-subtitle, .design-subcaption, .design-half p {
-      text-align: center;
-      width: 100%;
-      max-width: 700px;
-      
-    }
-    .playlist-description {
-      max-width: 700px;
-      margin: 0 auto;
-      text-align: left;
-      font-size: 1rem;
-      color: #ccc;
-      line-height: 1.8;
-      padding: 0;
-    }
+    /* Fallback styles for any gallery */
+    .gallery-container img,
+    .dripbag-container img { display: none; }
+    .gallery-container img.active,
+    .dripbag-container img.active { display: block; }
+    /* Force-hide any leftover gray layers just in case */
+    .floating-name .gray { display: none !important; }
   </style>
 </head>
 <body>
@@ -420,17 +27,26 @@
   <!-- WHO動画セクション -->
   <section class="hero">
     <video autoplay muted loop playsinline>
-      <source src="who0.mp4" type="video/mp4">
+      <source src="who0.mp4" type="video/mp4" />
     </video>
+
     <!-- WHO メイントップ動画 -->
     <video autoplay muted loop playsinline preload="auto" style="width:100%;max-width:1280px;margin:40px auto;display:block;border-radius:10px;">
-      <source src="who0.mp4" type="video/mp4">
+      <source src="who0.mp4" type="video/mp4" />
       お使いのブラウザは動画再生に対応していません。
     </video>
+
     <div class="overlay">
       <h1>WHO</h1>
       <p>インタラクティブアート / 体はリアルの代表なのか</p>
     </div>
+
+    <div class="hero-cta" aria-hidden="true">
+      <span class="hero-cta__ring"></span>
+      <span class="hero-cta__label">ENTER WHO</span>
+      <span class="hero-cta__arrow">→</span>
+    </div>
+
     <a class="hero-hit" href="who.html" aria-label="Open WHO details"></a>
   </section>
 
@@ -439,23 +55,24 @@
   <section class="grid">
     <div class="grid-item">
       <a href="https://www.youtube.com/watch?v=KtDI2GB_r48" target="_blank" rel="noopener">
-        <img src="https://img.youtube.com/vi/KtDI2GB_r48/maxresdefault.jpg" alt="卒業制作展 CM">
+        <img src="https://img.youtube.com/vi/KtDI2GB_r48/maxresdefault.jpg" alt="卒業制作展 CM" />
       </a>
       <div class="caption">九州産業大学芸術学部 2015年度卒業制作展 CM</div>
       <p class="detail">
-        2015年度 九州産業大学芸術学部の卒業制作展のCMを作成。<br>
-        天神ソラリアビジョン、九州産業大学HP、YouTubeにて放送。<br><br>
+        2015年度 九州産業大学芸術学部の卒業制作展のCMを作成。<br />
+        天神ソラリアビジョン、九州産業大学HP、YouTubeにて放送。<br /><br />
         Tools : Adobe After Effects / Photoshop
       </p>
     </div>
+
     <div class="grid-item">
       <a href="https://www.youtube.com/watch?v=uUbeNReygmo" target="_blank" rel="noopener">
-        <img src="https://img.youtube.com/vi/uUbeNReygmo/maxresdefault.jpg" alt="REC COFFEE レシピ動画">
+        <img src="https://img.youtube.com/vi/uUbeNReygmo/maxresdefault.jpg" alt="REC COFFEE レシピ動画" />
       </a>
       <div class="caption">REC COFFEE レシピ動画</div>
       <p class="detail">
-        REC COFFEE のホームページ用に制作したレシピ解説動画。<br>
-        コロナ期間中にお家でコーヒーを美味しく淹れるためにREC COFFEEおすすめの抽出レシピを掲載。<br><br>
+        REC COFFEE のホームページ用に制作したレシピ解説動画。<br />
+        コロナ期間中にお家でコーヒーを美味しく淹れるためにREC COFFEEおすすめの抽出レシピを掲載。<br />
         Tools : Adobe After Effects / Illustrator
       </p>
     </div>
@@ -465,54 +82,150 @@
 
   <section class="design-split">
     <div class="design-half menu-side">
-      <img src="menu.png" alt="メニュー表デザイン" id="menu-image">
+      <img src="menu.png" alt="メニュー表デザイン" id="menu-image" />
       <h3 class="design-subtitle">MENU</h3>
-      <p style="text-align: left;">ROUND COUNTERの店内メニュー表デザイン。
-        <br>テキストのみのメニュー表に商品画像をメニュー表を作成。<br>
-      こだわったデザートやトーストの見た目を活かし、コンセプトと合わせて作成<br><br><br>
-      Tools : Adobe Illustrator / Photoshop / ChatGPT</p>
+      <p style="text-align: left;">
+        ROUND COUNTERの店内メニュー表デザイン。<br />
+        テキストのみのメニュー表に商品画像をメニュー表を作成。<br />
+        こだわったデザートやトーストの見た目を活かし、コンセプトと合わせて作成<br /><br />
+        Tools : Adobe Illustrator / Photoshop / ChatGPT
+        <br /><br /><br />
+      </p>
     </div>
+
     <div class="design-half dripbag-side">
       <section class="dripbag-gallery">
         <div class="dripbag-container">
           <span class="dripbag-arrow dripbag-arrow-left" tabindex="0" aria-label="前へ">&lt;</span>
-          <img src="mado_確認.png" alt="窓の風景" class="active">
-          <img src="アトリエ_確認.png" alt="アトリエの様子">
-          <img src="カウンター_確認.png" alt="カウンターの写真">
-          <img src="カウンター横_確認.png" alt="カウンター横の様子">
-          <img src="店内_確認.png" alt="店内の様子">
-          <img src="入口_確認.png" alt="入口の写真">
+
+          <img src="mado_確認.png" alt="窓の風景" class="active" />
+          <img src="アトリエ_確認.png" alt="アトリエの様子" />
+          <img src="カウンター_確認.png" alt="カウンターの写真" />
+          <img src="カウンター横_確認.png" alt="カウンター横の様子" />
+          <img src="店内_確認.png" alt="店内の様子" />
+          <img src="入口_確認.png" alt="入口の写真" />
+
           <span class="dripbag-arrow dripbag-arrow-right" tabindex="0" aria-label="次へ">&gt;</span>
         </div>
       </section>
+
       <h3 class="design-subtitle">DRIPBAG COFFEE</h3>
       <p style="text-align: left;">
-        ROUND COUNTER の定番ブレンドのドリップバッグ６種を作成。<br>
-      ギフト用でお店に来たことがない方へもお店が想像できるよう創業当時の写真を使用し、セット販売を狙い全6色で作成。<br><br><br>
-      Tools : Adobe Illustrator<br>
+        ROUND COUNTER の定番ブレンドのドリップバッグ６種を作成。<br />
+        ギフト用でお店に来たことがない方へもお店が想像できるよう創業当時の写真を使用し、セット販売を狙い全6色で作成。<br /><br /><br />
+        Tools : Adobe Illustrator<br />
+      </p>
+    </div>
+
+    <!-- 水出しコーヒー（先頭に追加） -->
+    <div class="design-half coldbrew-side">
+      <section class="gallery">
+        <div class="gallery-container coldbrew-container">
+          <span class="gallery-arrow gallery-arrow-left" tabindex="0" aria-label="前へ">&lt;</span>
+
+          <!-- 画像は手元のファイル名に合わせて差し替えOK -->
+          <img src="cold brew_all.png" alt="水出しコーヒー ラベル一覧" class="active" />
+          <img src="cdf.jpg" alt="水出しコーヒー バッグ装着イメージ" />
+
+          <span class="gallery-arrow gallery-arrow-right" tabindex="0" aria-label="次へ">&gt;</span>
+        </div>
+      </section>
+
+      <h3 class="design-subtitle">COLD BREW COFFEE LABEL</h3>
+      <p style="text-align:left;">
+        ROUND COUNTER の水出しコーヒー用ラベルデザイン。<br>
+        夏のお祭りの「はっぴ」をイメージして作成。<br>
+        容量・抽出時間をラベルにそのまま入れ、コーヒーの味わいに合わせた配色をデザイン。<br><br>
+        Tools : Adobe Illustrator
+      </p>
+    </div>
+
+    <!-- SCAJブースデザイン（単色の前に配置） -->
+    <div class="design-half booth-side">
+      <section class="gallery">
+        <div class="gallery-container booth-container">
+          <span class="gallery-arrow gallery-arrow-left" tabindex="0" aria-label="前へ">&lt;</span>
+
+          <img src="scaj_booth_1.jpeg" alt="SCAJ ブースデザイン全景 1" class="active" />
+          <img src="scaj_booth_2.jpeg" alt="SCAJ ブースデザイン全景 2" />
+          <img src="scaj_booth_3.jpeg" alt="SCAJ ブースデザイン全景 3" />
+          <img src="scaj_booth_4.jpeg" alt="SCAJ ブースデザイン全景 4" />
+
+          <span class="gallery-arrow gallery-arrow-right" tabindex="0" aria-label="次へ">&gt;</span>
+        </div>
+      </section>
+
+      <h3 class="design-subtitle">SCAJ BOOTH DESIGN</h3>
+      <p style="text-align:left;">
+        SCAJ展示会のブースデザイン。<br>
+        動線設計（入口→商品詳細→商談）を前提に、視認距離ごとに情報密度をコントロール。<br>
+        カッティングシート・バックパネル・卓上POP・サンプルデザインを一貫してデザインを担当。<br><br>
+        Tools : Adobe Illustrator / Photoshop
+      </p>
+    </div>
+
+    <!-- 単色サンプル -->
+    <div class="design-half oneside-sample">
+      <img src="SCAJsamplingimage.png" alt="SPIN ドリップバッグ単色サンプル" id="oneside-sample-img" loading="lazy">
+      <h3 class="design-subtitle">DRIPBAG SAMPLE（SINGLE COLOR）</h3>
+      <p style="text-align:left;">
+        SCAJ展示会にて配布したSPINオリジナルの単色デザイン。<br>
+        OEM製造サンプルとして制作し、500個から製造可能な仕様を紹介。<br>
+        1色印刷ながらも情報設計とレイアウトで視認性を確保したパッケージ。<br>
+        パッケージに直接QRコードを載せ、HPへの動線を意識して作成。<br><br>
+        Tools : Adobe Illustrator
+      </p>
+    </div>
+
+    <div class="design-half sample-side">
+      <section class="gallery">
+        <div class="gallery-container sample-container">
+          <span class="gallery-arrow gallery-arrow-left" tabindex="0" aria-label="前へ">&lt;</span>
+
+          <img src="sample_1.png" alt="サンプルパッケージ（レッド系）" class="active" />
+          <img src="sample_2.png" alt="サンプルパッケージ（ブルー系）" />
+          <img src="sample_3.png" alt="サンプルパッケージ（グリーン系）" />
+          <img src="sample_4.png" alt="サンプルパッケージ（ピンク系）" />
+          <img src="sample_5.png" alt="サンプルパッケージ（イエロー系）" />
+          <img src="sample_6.png" alt="サンプルパッケージ（パープル系）" />
+          <img src="sample_7.png" alt="サンプルパッケージ（グレイ系）" />
+
+          <span class="gallery-arrow gallery-arrow-right" tabindex="0" aria-label="次へ">&gt;</span>
+        </div>
+      </section>
+
+      <h3 class="design-subtitle">SAMPLE PACKAGE（FULL COLOR）</h3>
+      <p style="text-align: left;">
+        東京ビックサイトでの展示会SCAJ2024ドリップバッグのサンプルパッケージ（フルカラー印刷）を７パターン制作。<br />
+        １ロット７種類のデザインが作成できること。アルミ地をむき出しにした場合。半透明な場合。白ベタを加えた場合の同じ色を乗せた場合。<br />
+        の発色の違いの参考になるようデザイン。<br /><br />
+        Tools : Adobe Illustrator
       </p>
     </div>
   </section>
 
-  <!-- === PLAYLISTセクション（中央揃え修正版） === -->
+  <!-- === PLAYLISTセクション === -->
   <section class="playlist-section">
     <h2>PLAYLIST</h2>
+
     <p class="playlist-description" style="text-align: left;">
       2022〜2025年にかけて、REC COFFEE全6店舗の店内BGMを季節ごとの雰囲気に合わせて年2回選曲を更新。
-      クリスマスなどの特別なシーズン音楽も担当。<br>
+      クリスマスなどの特別なシーズン音楽も担当。<br />
       その他のカフェやイベントからの依頼を受け、空間に合わせた
-      プレイリストを企画・制作。</p>
-      <br>
-    <p class="playlist-subtitle">SHOP MUSIC</p>
-    <div class="playlist-container">
+      プレイリストを企画・制作。
+    </p>
+    <br />
 
+    <p class="playlist-subtitle">SHOP MUSIC</p>
+
+    <div class="playlist-container">
       <!-- REC COFFEE -->
       <article class="pl-card">
         <div class="pl-body">
           <div class="pl-title">REC COFFEE</div>
         </div>
         <div class="pl-embed">
-          <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/0K3MuhzNBM3hTQOxgAY8S2?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/0K3MuhzNBM3hTQOxgAY8S2?utm_source=generator" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
         </div>
         <div class="pl-actions">
           <a class="pl-btn" href="https://music.apple.com/jp/playlist/rec-coffe-2025-04/pl.u-LdbqB4rtxW6Pq4" target="_blank" rel="noopener"> Music <span class="pl-badge">聞く</span></a>
@@ -526,7 +239,7 @@
           <div class="pl-title">ROUND COUNTER</div>
         </div>
         <div class="pl-embed">
-          <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/0Z6VqQjTOagJO4OfKiG2q8?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/0Z6VqQjTOagJO4OfKiG2q8?utm_source=generator" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
         </div>
         <div class="pl-actions">
           <a class="pl-btn" href="https://music.apple.com/jp/playlist/round-counter-night-groove/pl.u-V9DkBrVtqW6Pq4" target="_blank" rel="noopener"> Music <span class="pl-badge">開く</span></a>
@@ -539,31 +252,34 @@
         <div class="pl-body">
           <div class="pl-title">it()te</div>
         </div>
+
         <div class="pl-embed itte-embeds">
           <iframe id="itte-morning" class="itte-frame active" style="border-radius:12px"
             src="https://open.spotify.com/embed/playlist/2N6vNnkzuorqIjbrEfmdPR?utm_source=generator"
-            width="100%" height="152" frameBorder="0"
+            width="100%" height="152" frameborder="0"
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
             loading="lazy"></iframe>
 
           <iframe id="itte-day" class="itte-frame" style="border-radius:12px"
             src="https://open.spotify.com/embed/playlist/3r3sMpPivUvQ4rF0aC3btc?utm_source=generator"
-            width="100%" height="152" frameBorder="0"
+            width="100%" height="152" frameborder="0"
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
             loading="lazy"></iframe>
 
           <iframe id="itte-night" class="itte-frame" style="border-radius:12px"
             src="https://open.spotify.com/embed/playlist/0aRfjB9vg8nlSOlKQVt9Qx?utm_source=generator"
-            width="100%" height="152" frameBorder="0"
+            width="100%" height="152" frameborder="0"
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
             loading="lazy"></iframe>
         </div>
+
         <div class="pl-actions">
           <a class="pl-btn" id="apple-music-morning" href="https://music.apple.com/jp/playlist/it-%E6%9C%9D-te/pl.u-BNA6X9Js1zRbq7" target="_blank" rel="noopener"> Music <span class="pl-badge">開く</span></a>
           <a class="pl-btn" id="apple-music-day" href="https://music.apple.com/jp/playlist/it-%E6%98%BC-te/pl.u-b3b8D28cyR37Na" target="_blank" rel="noopener" style="display:none;"> Music <span class="pl-badge">開く</span></a>
           <a class="pl-btn" id="apple-music-night" href="https://music.apple.com/jp/playlist/it-%E5%A4%95-te/pl.u-6mo4ZeKiBPKLmd" target="_blank" rel="noopener" style="display:none;"> Music <span class="pl-badge">開く</span></a>
           <a class="pl-btn" href="https://open.spotify.com/playlist/3K2R8dJd7z6AY4pEZDFzoP?si=abcd1234" target="_blank" rel="noopener">Spotify <span class="pl-badge">開く</span></a>
         </div>
+
         <div class="itte-tabs">
           <button class="active" onclick="showItte('morning')">it(朝)te</button>
           <button onclick="showItte('day')">it(昼)te</button>
@@ -571,6 +287,7 @@
         </div>
       </article>
     </div>
+
     <p class="playlist-subtitle event-bgm">EVENT MUSIC</p>
     <div class="playlist-container">
       <!-- WHO -->
@@ -579,7 +296,7 @@
           <div class="pl-title">WHO</div>
         </div>
         <div class="pl-embed">
-          <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/0CzzCvGBsAliwZxBrXLqWn?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/0CzzCvGBsAliwZxBrXLqWn?utm_source=generator" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
         </div>
         <div class="pl-actions">
           <a class="pl-btn" href="https://music.apple.com/jp/playlist/who-2024/pl.u-Ymb0p3RUPjDNav" target="_blank" rel="noopener"> Music <span class="pl-badge">開く</span></a>
@@ -588,483 +305,27 @@
       </article>
     </div>
   </section>
-  <style>
-    .playlist-section {
-      text-align: center;
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto 80px;
-      padding: 32px 5vw 12px;
-    }
-    .playlist-section h2 {
-      text-align: center; font-size: 2rem; font-weight: 700;
-      margin: 0 0 24px; letter-spacing: .05em;
-    }
-    .playlist-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 30px 22px;
-      justify-content: center;
-      align-items: stretch;
-      margin: 0 auto;
-    }
-    .pl-card {
-      background: #181818;
-      border: 1px solid #2a2a2a;
-      border-radius: 12px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.14);
-      padding: 20px 18px 16px;
-      width: 320px;
-      max-width: 95vw;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: transform .2s, border-color .2s;
-      text-align: center;
-      position: relative;
-    }
-    .pl-card:hover {
-      transform: translateY(-3px) scale(1.015);
-      border-color: #3a3a3a;
-    }
-    .pl-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 10px;
-      background: #202020;
-      font-weight: 800;
-      letter-spacing: .02em;
-      font-size: 1.15rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 10px;
-      color: #fff;
-      box-shadow: 0 0 10px rgba(0,0,0,0.12);
-    }
-    .pl-body {
-      width: 100%;
-      min-width: 0;
-      margin-bottom: 10px;
-    }
-    .pl-title {
-      font-weight: 700;
-      font-size: 1.07rem;
-      line-height: 1.35;
-      letter-spacing: 0.01em;
-      margin-bottom: 6px;
-    }
-    .pl-subtitle {
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: #bbb;
-      margin-top: -2px;
-      margin-bottom: 8px;
-      letter-spacing: 0.05em;
-    }
-    .pl-embed {
-      margin: 0 auto 10px;
-      width: 100%;
-      max-width: 320px;
-      display: flex;
-      justify-content: center;
-    }
-    .pl-actions {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      width: 100%;
-      margin-top: 6px;
-      flex-wrap: wrap;
-    }
-    .pl-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: .95rem;
-      border: 1px solid #3a3a3a;
-      background: #111;
-      color: #fff;
-      text-decoration: none;
-      transition: background .2s, border-color .2s, opacity .2s;
-      white-space: nowrap;
-      opacity: 1;
-    }
-    .pl-btn:hover {
-      background: #1b1b1b;
-      border-color: #555;
-    }
-    .pl-badge {
-      font-size: .74rem;
-      opacity: .8;
-      background: #222;
-      border-radius: 6px;
-      padding: 2px 8px;
-      margin-left: 4px;
-      font-weight: 600;
-      letter-spacing: 0.01em;
-    }
-    .pl-btn[href="#"] {
-      opacity: .35;
-      pointer-events: none;
-      cursor: default;
-    }
-    @media (max-width: 900px) {
-      .playlist-container {
-        gap: 18px 0;
-      }
-      .pl-card {
-        width: 98vw;
-        max-width: 420px;
-        margin: 0 auto;
-      }
-    }
-    @media (max-width: 600px) {
-      .playlist-section {
-        padding: 24px 0 8px;
-      }
-      .playlist-container {
-        flex-direction: column;
-        gap: 20px 0;
-        align-items: center;
-      }
-      .pl-card {
-        padding: 14px 4vw 10px;
-        width: 98vw;
-        max-width: 98vw;
-      }
-      .pl-embed {
-        max-width: 96vw;
-      }
-    }
-    /* --- itte playlist tabs --- */
-    .itte-tabs {
-      display: flex;
-      justify-content: center;
-      gap: 14px;
-      margin-top: 16px;
-      margin-bottom: 10px;
-    }
-    .itte-tabs button {
-      background: #222;
-      color: #fff;
-      border: 1px solid #333;
-      border-radius: 6px;
-      padding: 6px 12px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background .2s, color .2s;
-    }
-    .itte-tabs button.active {
-      background: #fff;
-      color: #000;
-    }
-    .itte-tabs button:hover {
-      background: #444;
-    }
-    .itte-frame {
-      display: none;
-    }
-    .itte-frame.active {
-      display: block;
-      animation: fadeIn 0.5s ease;
-    }
-  </style>
-  <style>
-    .playlist-subtitle {
-      text-align: center;
-      font-size: 1.3rem;
-      color: #eee;
-      letter-spacing: 0.12em;
-      margin-top: -6px;
-      margin-bottom: 26px;
-      font-weight: 700;
-      text-shadow: 0 0 8px rgba(255,255,255,0.15);
-    }
-    .playlist-subtitle.event-bgm {
-      margin-top: 80px;
-      color: #fff;
-      text-shadow: 0 0 10px rgba(255,255,255,0.25);
-    }
-  </style>
-  <script>
-  function showItte(period) {
-    document.querySelectorAll('.itte-tabs button').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.itte-frame').forEach(f => f.classList.remove('active'));
-    document.querySelector(.itte-tabs button[onclick="showItte('${period}')"]).classList.add('active');
-    document.getElementById(itte-${period}).classList.add('active');
-    // Apple Music links show/hide
-    document.querySelectorAll('#apple-music-morning, #apple-music-day, #apple-music-night').forEach(link => link.style.display = 'none');
-    document.getElementById(apple-music-${period}).style.display = 'inline-flex';
-  }
-  </script>
-  <!-- === PLAYLISTここまで === -->
-
-  <script>
-  (function(){
-    const images = document.querySelectorAll('.dripbag-container img');
-    const container = document.querySelector('.dripbag-container');
-    let current = 0;
-
-    function show(index){
-      images.forEach(img => img.classList.remove('active'));
-      images[index].classList.add('active');
-    }
-
-    function prevImage(){
-      current = (current - 1 + images.length) % images.length;
-      show(current);
-    }
-
-    function nextImage(){
-      current = (current + 1) % images.length;
-      show(current);
-    }
-
-    // Expose for arrow click handlers
-    window.prevImage = prevImage;
-    window.nextImage = nextImage;
-
-    // Click navigation on left/right 20% of image area
-    container.addEventListener('click', (e) => {
-      // If arrow was clicked, ignore (handled below)
-      if (e.target.classList.contains('dripbag-arrow')) return;
-      const rect = container.getBoundingClientRect();
-      const clickX = e.clientX - rect.left;
-      const width = rect.width;
-      if (clickX < width * 0.2) {
-        prevImage();
-      } else if (clickX > width * 0.8) {
-        nextImage();
-      }
-    });
-
-    // Touch swipe navigation
-    let touchStartX = null;
-    let touchEndX = null;
-
-    container.addEventListener('touchstart', (e) => {
-      if (e.touches.length === 1) {
-        touchStartX = e.touches[0].clientX;
-      }
-    });
-
-    container.addEventListener('touchend', (e) => {
-      if (touchStartX === null) return;
-      touchEndX = e.changedTouches[0].clientX;
-      const deltaX = touchEndX - touchStartX;
-      const threshold = 30; // minimum swipe distance in px to trigger navigation
-      if (deltaX > threshold) {
-        prevImage();
-      } else if (deltaX < -threshold) {
-        nextImage();
-      }
-      touchStartX = null;
-      touchEndX = null;
-    });
-
-    // Navigation arrows
-    const leftArrow = container.querySelector('.dripbag-arrow-left');
-    const rightArrow = container.querySelector('.dripbag-arrow-right');
-    if (leftArrow && rightArrow) {
-      leftArrow.addEventListener('click', function(e) {
-        e.stopPropagation();
-        prevImage();
-      });
-      rightArrow.addEventListener('click', function(e) {
-        e.stopPropagation();
-        nextImage();
-      });
-      // Keyboard accessibility
-      leftArrow.addEventListener('keydown', function(e){
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          prevImage();
-        }
-      });
-      rightArrow.addEventListener('keydown', function(e){
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          nextImage();
-        }
-      });
-    }
-  })();
-  </script>
 
   <!-- Lightbox overlay for dripbag gallery -->
   <div class="lightbox" id="lightbox">
     <span class="close">&times;</span>
     <span class="lightbox-prev">&#10094;</span>
     <span class="lightbox-next">&#10095;</span>
-    <img class="lightbox-content" id="lightbox-img" alt="">
+    <img class="lightbox-content" id="lightbox-img" alt="" />
   </div>
-
-  <style>
-    #menu-lightbox {
-      display: none;
-      position: fixed;
-      z-index: 9999;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.9);
-      justify-content: center;
-      align-items: center;
-    }
-    #menu-lightbox img {
-      max-width: 95%;
-      max-height: 90vh;
-      border-radius: 10px;
-      box-shadow: 0 0 30px rgba(255,255,255,0.1);
-    }
-    #menu-lightbox .close {
-      position: absolute;
-      top: 20px;
-      right: 40px;
-      color: #fff;
-      font-size: 2.2rem;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .lightbox {
-      display: none;
-      position: fixed;
-      z-index: 9999;
-      padding-top: 60px;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.9);
-    }
-    .lightbox-content {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      max-width: 90%;
-      max-height: 80vh;
-      display: block;
-      border-radius: 8px;
-      box-shadow: 0 0 40px rgba(255,255,255,0.1);
-    }
-    .lightbox .close {
-      position: absolute;
-      top: 30px;
-      right: 50px;
-      color: #fff;
-      font-size: 2rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .lightbox .close:hover {
-      color: #ffcc00;
-    }
-    .lightbox-prev, .lightbox-next {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 10000;
-      color: #fff;
-      font-size: 3rem;
-      font-weight: bold;
-      cursor: pointer;
-      padding: 10px 20px;
-      user-select: none;
-      opacity: 0.7;
-      transition: opacity 0.3s, transform 0.3s;
-    }
-    .lightbox-prev { left: 5%; }
-    .lightbox-next { right: 5%; }
-
-    .lightbox-prev:hover, .lightbox-next:hover {
-      opacity: 1;
-      transform: translateY(-50%) scale(1.1);
-    }
-  </style>
-
-  <script>
-    // Lightbox functionality for dripbag-gallery
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    const closeBtn = document.querySelector('.lightbox .close');
-
-    // --- ここからスライドショー対応 ---
-    const lightboxImages = Array.from(document.querySelectorAll('.dripbag-container img'));
-    let currentLightboxIndex = 0;
-
-    document.querySelectorAll('.dripbag-container img').forEach((img, index) => {
-      img.addEventListener('click', (e) => {
-        e.stopPropagation();
-        lightbox.style.display = 'block';
-        currentLightboxIndex = index;
-        lightboxImg.src = img.src;
-        lightboxImg.alt = img.alt || '';
-      });
-    });
-
-    function showLightboxImage(index) {
-      if (index < 0) index = lightboxImages.length - 1;
-      if (index >= lightboxImages.length) index = 0;
-      currentLightboxIndex = index;
-      lightboxImg.src = lightboxImages[index].src;
-      lightboxImg.alt = lightboxImages[index].alt || '';
-    }
-
-    document.querySelector('.lightbox-prev').addEventListener('click', (e) => {
-      e.stopPropagation();
-      showLightboxImage(currentLightboxIndex - 1);
-    });
-
-    document.querySelector('.lightbox-next').addEventListener('click', (e) => {
-      e.stopPropagation();
-      showLightboxImage(currentLightboxIndex + 1);
-    });
-
-    // ESC / 左右キー対応
-    document.addEventListener('keydown', function(e) {
-      if (lightbox.style.display === 'block') {
-        if (e.key === 'ArrowLeft') showLightboxImage(currentLightboxIndex - 1);
-        if (e.key === 'ArrowRight') showLightboxImage(currentLightboxIndex + 1);
-        if (e.key === 'Escape') {
-          lightbox.style.display = 'none';
-          lightboxImg.src = '';
-        }
-      }
-    });
-    // --- ここまでスライドショー対応 ---
-
-    closeBtn.addEventListener('click', () => {
-      lightbox.style.display = 'none';
-      lightboxImg.src = '';
-    });
-
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) {
-        lightbox.style.display = 'none';
-        lightboxImg.src = '';
-      }
-    });
-  </script>
 
   <!-- About -->
   <section class="about">
-    <br> <br>
-     <h1>濱洲裕馬</h1>
- <br>
-     <br>
-         <h2>profile</h2>
+    <br /><br />
+    <h1>濱洲裕馬</h1>
+    <br /><br />
+    <h2>profile</h2>
     <p>
-      映像・Web表現・パッケージデザインを軸に、コーヒー製造現場の実務経験を活かした表現活動を行っています。<br>
-      ドリップバッグのOEM製造現場で営業・企画・デザインまでを担当。<br>
+      映像・Web表現・パッケージデザインを軸に、コーヒー製造現場の実務経験を活かした表現活動を行っています。<br />
+      ドリップバッグのOEM製造現場で営業・企画・デザインまでを担当。<br />
       TouchDesignerを使ったインタラクティブな映像インスタレーションも制作。
     </p>
+
     <h3>経歴</h3>
     <ul>
       <li>2015年：九州産業大学芸術学部 卒業制作優秀賞 受賞</li>
@@ -1073,6 +334,7 @@
       <li>2023年,2024年：展示会で映像インスタレーション作品を発表（TouchDesigner）</li>
       <li>2025年〜：ROUND COUNTERにてバリスタ兼、デザイン実務を担当</li>
     </ul>
+
     <h3>主なスキル</h3>
     <ul>
       <li>Adobe Illustrator / Photoshop / After Effects</li>
@@ -1086,112 +348,66 @@
     <button id="contact-button" class="contact-btn">MAIL</button>
   </section>
 
-  <script>
-  (function() {
-    const email = "hamasu.busi@gmail.com";
-    const subject = encodeURIComponent("お問い合わせ");
-    const body = encodeURIComponent("こちらにご記入ください：\n\n");
-
-    document.getElementById("contact-button").addEventListener("click", (e) => {
-      e.preventDefault();
-      // Gmailを優先して開く（Safari・Chrome両対応）
-      const gmailUrl = `https://mail.google.com/mail/?view=cm&to=${email}&su=${subject}&body=${body}`;
-      window.open(gmailUrl, "_blank");
-    });
-  })();
-  </script>
-
-  <style>
-    .contact-btn {
-      background: #fff;
-      color: #111;
-      border: none;
-      padding: 12px 32px;
-      border-radius: 30px;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    .contact-btn:hover {
-      background: #ff6b6b;
-      color: #fff;
-      transform: translateY(-2px);
-    }
-  </style>
-
+  <!-- フッター -->
   <footer>
     © 2025 Hamasu Yuma
   </footer>
 
-  <script>
-    const items = document.querySelectorAll('.grid-item');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('show');
-        }
-      });
-    }, { threshold: 0.1 });
+  <!-- Floating Name -->
+<div class="floating-name">
+  <span>濱</span><span class="sp">　</span>
+  <span>洲</span><span class="sp">　</span>
+  <span>裕</span><span class="sp">　</span>
+  <span>馬</span>
+</div>
 
-    items.forEach(item => observer.observe(item));
+  <!-- Scripts -->
+  <script src="main.js?v=1.0" defer></script>
+  <script>
+    // Remove any leftover gray spans if cached HTML remains
+    document.querySelectorAll('.floating-name .gray').forEach(n => n.remove());
   </script>
-
-  <div class="floating-name">
-    <span><span class="gray">濱</span>濱</span>
-    <span><span class="gray">洲</span>洲</span>
-    <span><span class="gray">裕</span>裕</span>
-    <span><span class="gray">馬</span>馬</span>
-  </div>
-
   <script>
-    // 濱洲裕馬 floating animation (修正版)
-    const namePairs = document.querySelectorAll('.floating-name span');
+    (function(){
+      function initSlider(container){
+        if(!container) return;
+        const imgs = Array.from(container.querySelectorAll('img'));
+        if(imgs.length === 0) return;
+        let current = Math.max(0, imgs.findIndex(i => i.classList.contains('active')));
+        if(current === -1){ current = 0; imgs[0].classList.add('active'); }
+        const show = (idx)=>{
+          imgs.forEach(i=>i.classList.remove('active'));
+          imgs[idx].classList.add('active');
+        };
+        const prev = ()=>{ current = (current - 1 + imgs.length) % imgs.length; show(current); };
+        const next = ()=>{ current = (current + 1) % imgs.length; show(current); };
 
-    function randomizePair(span) {
-      const scaleX = 0.7 + Math.random() * 1.6;
-      const scaleY = 0.7 + Math.random() * 1.6;
-      const opacity = Math.random() > 0.1 ? 1 : 0.4;
-      const duration = 100 + Math.random() * 200;
+        // Find arrows (supports both .gallery-* and .dripbag-* classnames)
+        const left  = container.querySelector('.gallery-arrow-left')  || container.querySelector('.dripbag-arrow-left');
+        const right = container.querySelector('.gallery-arrow-right') || container.querySelector('.dripbag-arrow-right');
+        left  && left.addEventListener('click',  e => { e.stopPropagation(); prev(); });
+        right && right.addEventListener('click', e => { e.stopPropagation(); next(); });
 
-      span.style.transition = `transform ${duration}ms steps(1, end), opacity ${duration}ms steps(1, end)`;
-      span.style.transform = `scale(${scaleX.toFixed(2)}, ${scaleY.toFixed(2)})`;
-      span.style.opacity = opacity;
+        // Click on left/right 20% area of the container
+        container.addEventListener('click', (e)=>{
+          const rect = container.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          if(x < rect.width * 0.2)      prev();
+          else if(x > rect.width*0.8)   next();
+        });
 
-      const gray = span.querySelector('.gray');
-      if (gray) {
-        gray.style.transition = `transform ${duration * 3}ms steps(1, end), opacity ${duration}ms steps(1, end)`;
-        gray.style.transform = `scale(${(scaleX * 0.6).toFixed(2)}, ${(scaleY * 0.6).toFixed(2)})`;
-        gray.style.opacity = opacity * 0.5;
+        // Touch swipe
+        let sx = null;
+        container.addEventListener('touchstart', (e)=>{ if(e.touches.length===1) sx = e.touches[0].clientX; }, {passive:true});
+        container.addEventListener('touchend', (e)=>{
+          if(sx==null) return; const dx = e.changedTouches[0].clientX - sx; sx = null;
+          if(dx > 30) prev(); else if(dx < -30) next();
+        });
       }
 
-      setTimeout(() => randomizePair(span), duration + Math.random() * 400);
-    }
-
-    namePairs.forEach(span => {
-      setTimeout(() => randomizePair(span), Math.random() * 500);
-    });
+      // Initialize all galleries on the page (dripbag + coldbrew + booth + sample)
+      document.querySelectorAll('.gallery-container, .dripbag-container').forEach(initSlider);
+    })();
   </script>
-
 </body>
 </html>
-  <script>
-  // Menu image lightbox
-  const menuImg = document.getElementById('menu-image');
-  const menuLightbox = document.createElement('div');
-  menuLightbox.id = 'menu-lightbox';
-  menuLightbox.innerHTML = '<span class="close">&times;</span><img src="" alt="menu large">';
-  document.body.appendChild(menuLightbox);
-  const menuLightboxImg = menuLightbox.querySelector('img');
-  const menuClose = menuLightbox.querySelector('.close');
-  menuImg.addEventListener('click', () => {
-    menuLightbox.style.display = 'flex';
-    menuLightboxImg.src = menuImg.src;
-  });
-  menuClose.addEventListener('click', () => {
-    menuLightbox.style.display = 'none';
-  });
-  menuLightbox.addEventListener('click', (e) => {
-    if (e.target === menuLightbox) menuLightbox.style.display = 'none';
-  });
-  </script>
