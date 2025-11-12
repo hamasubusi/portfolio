@@ -18,6 +18,7 @@
       font-size: 2.2rem;
       font-weight: bold;
       letter-spacing: 0.05em;
+      text-align: center;
     }
     video {
       width: 95%;
@@ -31,13 +32,14 @@
       margin: 10px auto 60px;
       color: #ccc;
       font-size: 1.1rem;
-      text-align: left !important;
-      margin-left: auto;
-      margin-right: auto;
-      display: block;
+      text-align: center;
+      padding: 0 15px;
+      box-sizing: border-box;
     }
     .description p {
-      text-align: left !important;
+      text-align: center;
+      margin: 0 auto;
+      max-width: 600px;
     }
     .work-section {
       /* Reduce trailing space before the back button */
@@ -183,6 +185,17 @@
     */
 
     /* (whoGlitch and whoGlitchGray keyframes replaced by new effect above) */
+
+    /* Responsive text alignment and padding */
+    @media (max-width: 600px) {
+      .description {
+        padding: 0 10px;
+        max-width: 100%;
+      }
+      .description p {
+        max-width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -201,12 +214,12 @@
     <img src="who_title.JPG" alt="Who 展示ビジュアル" 
          style="width: 100%; max-width: 900px; margin: 0 auto; display: block; border-radius: 10px;">
     <div style="max-width:900px;margin:40px auto 0;">
-      <div style="max-width:800px;margin:32px auto 60px;color:#ccc;font-size:1.1rem;line-height:2;text-align:left !important;padding-left:20px;">
-        <p style="margin:0;text-align:left !important;">
+      <div style="max-width:800px;margin:32px auto 60px;color:#ccc;font-size:1.1rem;line-height:2;text-align:center;padding:0 15px;box-sizing:border-box;">
+        <p style="margin:0 auto; max-width: 600px;">
           <div style="text-align:center;">
             <span style="font-size:1.6rem;font-weight:800;">体はリアルの代表なのか</span><br><br>
           </div>
-          <div style="padding-left:80px;font-weight:00;">
+          <div style="font-weight:00;">
           この展示は、インタラクティブアートとパフォーミングアーツを組み合わせ、<br>
           福岡のアーティストと観客とが共同で体の知覚について探求するものです。<br><br>
           投影される自分の姿や生身のダンサーを通じて、身体の表現を現実世界と映像の世界で<br>
@@ -229,7 +242,7 @@
       </video>
       <div class="description">
         <p>
-          カメラの映像をプロジェクターに投影し、投影された映像をカメラで撮影することで、<br>
+          カメラの映像をプロジェクターに投影し、投影された映像をカメラで撮影することで、
           合わせ鏡の要領でフィードバックを起こす。<br>
           加えて、撮影と投影にラグを起こすことで、映像が奥に行くにつれてラグが大きくなってゆく。<br>
           過去が刻まれ、現実の動きがリアルな過去を生み出す。<br>
@@ -249,10 +262,9 @@
         お使いのブラウザは動画再生に対応していません。
       </video>
       <div class="description">
-        <p style="text-align:right; padding-right:60px;">
+        <p>
           モノクロの反転映像（ネガのような状態）として投影され、動いたものを<br>
-          白または黒色に投影する。<br>
-          それを追いかける形で反転した影が追いかけてくる。<br>
+          白または黒色に投影する。それを追いかける形で反転した影が追いかけてくる。<br>
           さらに2つの影は3分後に再度投影される。<br>
           上記に付随して現実の影とプロジェクターの影、遅延した影と追ってくる影が<br>
           生成される。<br>
