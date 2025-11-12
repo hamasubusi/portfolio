@@ -25,8 +25,20 @@ body {
 @keyframes fadeIn { to { opacity: 1; } }
 
 @media (max-width: 768px) {
-  .hero { height: auto; aspect-ratio: 9 / 16; }
-  .hero video { width: 100%; height: auto; object-fit: contain; }
+  .hero {
+    height: 100vh;
+    overflow: hidden;
+  }
+  .hero video {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100vh;           /* 高さを端末の縦いっぱいに */
+    width: auto;             /* 横ははみ出しOK */
+    min-width: 100%;         /* 横が足りない端末でもカバー */
+    object-fit: cover;       /* 端をトリミングしてフルブリード */
+  }
   .overlay h1 { font-size: 2rem; }
   .overlay p { font-size: 1rem; }
 }
@@ -199,33 +211,6 @@ section.grid {
   box-shadow: 0 6px 20px rgba(0,0,0,.15);
 }
 .dripbag-container img.active { position: relative; opacity: 1; }
-.dripbag-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2;
-  font-size: 2.8rem;
-  font-weight: bold;
-  color: #fff;
-  opacity: .6;
-  background: transparent;
-  border-radius: 0;
-  padding: .1em .4em;
-  cursor: pointer;
-  user-select: none;
-  box-shadow: 0 2px 10px rgba(0,0,0,.13);
-  transition: opacity .25s, background .25s, box-shadow .25s;
-  border: none;
-  outline: none;
-  pointer-events: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.dripbag-arrow-left { left: -32px; }
-.dripbag-arrow-right { right: -32px; }
-
-.dripbag-arrow:hover, .dripbag-arrow:focus { opacity: 1; background: transparent; box-shadow: 0 4px 20px rgba(0,0,0,.23); }
 
 /* ---- generic gallery containers (sample / coldbrew) ---- */
 .sample-container,
@@ -237,6 +222,7 @@ section.grid {
   max-width: 700px;          /* 左の単色サンプル画像と同じ見かけ幅に合わせる */
   aspect-ratio: 3 / 2;       /* 高さを確保 */
   border-radius: 10px;
+  z-index: 0;     /* 画像(絶対配置)と矢印の基準に */
 }
 
 @media (max-width: 900px) {
@@ -274,38 +260,9 @@ section.grid {
 }
 
 /* 汎用矢印（.gallery-arrow-left / .gallery-arrow-right） */
-.gallery-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2;
-  font-size: 2.8rem;
-  font-weight: bold;
-  color: #fff;
-  opacity: 0.6;
-  background: transparent;
-  padding: 0.1em 0.4em;
-  cursor: pointer;
-  user-select: none;
-  transition: opacity .25s, transform .25s;
-  pointer-events: auto;
-}
-.gallery-arrow:hover { opacity: 1; transform: translateY(-50%) scale(1.05); }
-.gallery-arrow-left  { left:  -32px; }
-.gallery-arrow-right { right: -32px; }
-
-@media (max-width: 600px) {
-  .gallery-arrow { font-size: 2.1rem; }
-  .gallery-arrow-left  { left:  -16px; }
-  .gallery-arrow-right { right: -16px; }
-}
 
 @media (max-width: 600px) {
   .dripbag-container { max-width: 90vw; }
-  .dripbag-arrow { font-size: 2.1rem; left: -20px; right: -20px; padding: .1em .3em; }
-  .dripbag-arrow-left { left: -16px; }
-  .dripbag-arrow-right { right: -16px; }
-
   .floating-name { gap: 4vw; padding: .6em 4.5vw; letter-spacing: .12em; }
   .floating-name span { font-size: clamp(1rem, 5vw, 2.6rem); }
 }
@@ -538,6 +495,7 @@ footer { text-align: center; padding: 40px 0; background: #000; color: #666; }
 .dripbag-container {
   position: relative;
   overflow: hidden; /* keep arrows inside */
+  z-index: 0;
 }
 
 .gallery-container img,
@@ -551,7 +509,13 @@ footer { text-align: center; padding: 40px 0; background: #000; color: #666; }
   display: block;
 }
 
-/* Arrows (shared) */
+/* Booth specific container adopts the generic gallery base */
+.booth-container { overflow: hidden; }
+
+/* --- Unified arrow placement (desktop & mobile) --- */
+.gallery-container,
+.dripbag-container { position: relative; }
+
 .gallery-arrow,
 .dripbag-arrow {
   position: absolute;
@@ -569,12 +533,10 @@ footer { text-align: center; padding: 40px 0; background: #000; color: #666; }
   border-radius: 50%;
   cursor: pointer;
   user-select: none;
-  z-index: 10; /* above images and overlays */
-  opacity: 1; /* always visible */
+  z-index: 20;           /* 画像より前面に */
+  pointer-events: auto;  /* タップを確実に受ける */
 }
 
-/* Booth specific container adopts the generic gallery base */
-.booth-container { overflow: hidden; }
 .gallery-arrow-left,
 .dripbag-arrow-left { left: 10px; }
 .gallery-arrow-right,
@@ -582,6 +544,11 @@ footer { text-align: center; padding: 40px 0; background: #000; color: #666; }
 
 .gallery-arrow:hover,
 .dripbag-arrow:hover { background: rgba(0,0,0,0.65); }
+
+@media (max-width: 768px){
+  .gallery-arrow,
+  .dripbag-arrow { width: 40px; height: 40px; font-size: 22px; }
+}
 
 .gallery-arrow:focus-visible,
 .dripbag-arrow:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
